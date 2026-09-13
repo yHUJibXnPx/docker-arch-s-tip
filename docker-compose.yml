@@ -1,0 +1,57 @@
+services:
+  s_tip_service:
+    build:
+      context: ${BUILD_CONTEXT}
+    command:
+      - "${START_SCRIPT}"
+    platform: ${PLATFORM}
+    container_name: ${CONTAINER_S_TIP}
+    environment:
+      - TZ=${TIMEZONE}
+      - CRON_SCHEDULE=${CRON_SCHEDULE}
+      # ── 核心替换：支持明文或文件 ─────────────────────────────────────────
+      - HOSTS_JSON=${HOSTS_JSON:-}
+      - HOSTS_JSON_FILE=${HOSTS_JSON_FILE:-}
+      - SCRIPT=${SCRIPT:-}
+      
+      - ENABLE_TG=${ENABLE_TG:-true}
+      - ENABLE_EMAIL=${ENABLE_EMAIL:-true}
+      
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN:-}
+      - TELEGRAM_TOKEN_FILE=${TELEGRAM_TOKEN_FILE:-}
+      - TELEGRAM_USERID=${TELEGRAM_USERID:-}
+      
+      - AUTHTYPE=${AUTHTYPE:-password}
+      - MAILADDR=${MAILADDR:-}
+      - MAILPORT=${MAILPORT:-587}
+      - MAILUSERNAME=${MAILUSERNAME:-}
+      - MAILPASSWORD=${MAILPASSWORD:-}
+      - MAILPASSWORD_FILE=${MAILPASSWORD_FILE:-}
+      - MAILFROM=${MAILFROM:-}
+      - MAILSENDTO=${MAILSENDTO:-}
+      # ──────────────────────────────────────────────────────────────────
+      - HTTP_PROXY=${PROXY_HTTP:-}
+      - HTTPS_PROXY=${PROXY_HTTPS:-}
+      - ALL_PROXY=${PROXY_ALL:-}
+      - NO_PROXY=${PROXY_NO:-}
+      - http_proxy=${PROXY_HTTP:-}
+      - https_proxy=${PROXY_HTTPS:-}
+      - all_proxy=${PROXY_ALL:-}
+      - no_proxy=${PROXY_NO:-}
+    image: ${IMAGE_S_TIP}
+    privileged: ${PRIVILEGED}
+    restart: ${RESTART_POLICY}
+    logging:
+      driver: ${LOGGING_DRIVER}
+      options:
+        max-size: ${LOG_MAX_SIZE}
+    volumes:
+      - ${CUSTOM_SCRIPTS_DIR:-./custom_scripts}:/scripts:ro
+      # 预留给本地文件模式 Secret 挂载的目录
+      - ./secrets:/run/secrets:ro
+    networks:
+      - network
+
+networks:
+  network:
+    driver: ${NETWORK_TYPE}
