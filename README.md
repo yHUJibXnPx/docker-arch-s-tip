@@ -207,7 +207,7 @@ docker logs -f s_tip_container
 例如，通过 docker 运行容器：
 
 ```bash
-docker run --rm -it ghcr.io/yHUJibXnPx/docker-arch-s-tip:latest tini -- "/usr/local/bin/configure-cron.sh"
+docker run --rm -it ghcr.io/yhujibxnpx/docker-arch-s-tip:latest tini -- "/usr/local/bin/configure-cron.sh"
 ```
 
 ## 构建 Docker 镜像
@@ -614,14 +614,14 @@ sudo systemctl show --property=Environment docker
 # docker login & config
 ## 使用 github 具有上传下载镜像权限 [write:packages(read:packages)] 的 token 登陆 github 并预配置用户和目录参数
 echo '请输入具有上传下载镜像权限 [write:packages(read:packages)] 的 github token (不会显示输入内容):' ; read -sr GITHUB_TOKEN
-echo '请输入 github 用户名(为空则默认是 yHUJibXnPx ):' ; read -r USERNAME
+echo '请输入 github 用户名(为空则默认是 yhujibxnpx ):' ; read -r USERNAME
 echo '请输入你的 github 镜像存储源(为空则默认是 ghcr.io ):' ; read -r DOCKER_DOMAIN
 echo '请输入 docker 项目存放的父目录(为空则默认目录 /media/psf/KingStonSSD1T/docker-workspace ):' ; read -r CUSTOM_DIR
 echo '请输入你的 docker 项目名(为空则默认是我的仓库名即 docker-arch-s-tip ):' ; read -r REPO
 echo '请输入你的 docker buildx 构建可能需要的大缓存存储目录(为空则默认目录 /media/psf/KingStonSSD1T/docker_buildx.cache ):' ; read -r BUILDX_CACHE
 
 ## 执行登陆和变量赋值解除
-USERNAME=${USERNAME:-yHUJibXnPx}
+USERNAME=${USERNAME:-yhujibxnpx}
 DOCKER_DOMAIN=${DOCKER_DOMAIN:-ghcr.io}
 echo ${GITHUB_TOKEN} | docker login ${DOCKER_DOMAIN} -u ${USERNAME} --password-stdin ; unset GITHUB_TOKEN
 CUSTOM_DIR=${CUSTOM_DIR:-'/media/psf/KingStonSSD1T/docker-workspace'}
@@ -686,7 +686,7 @@ docker-buildx inspect --bootstrap
 #  --push 表示将构建完成的镜像推送到 Docker 远端镜像库中 
 #  --output 导出器以下是type参数信息
 #    type=image 导出类型为 image 镜像 type=oci 则是导出镜像为 OCI 标准归档文件，允许在本地离线处理多架构镜像，脱离对实时网络连接的依赖。
-#    name=ghcr.io/yHUJibXnPx/docker-arch-s-tip:latest 镜像名
+#    name=ghcr.io/yhujibxnpx/docker-arch-s-tip:latest 镜像名
 #    compression=zstd 压缩类型 zstd 也支持 gzip 和 estargz
 #    compression-level=22 设置 zstd 压缩级别为 22 ，gzip 和 estargz 的范围是 0-9 ， zstd 的范围是 0-22
 #    force-compression=true 强制重压缩
